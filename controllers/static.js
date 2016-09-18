@@ -1,6 +1,6 @@
 const fs = require('fs')
 const mime = require('mime');
-const sendFile = require('../utils/send')
+const sendFile = require('../utils/send').sendFile
 const joinPath = require('path').join
 const publicPath = joinPath(__dirname,'../public')
 
