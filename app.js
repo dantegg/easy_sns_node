@@ -7,7 +7,8 @@ const rules = [
   {path:'/user',controller:controllers.user},
   {path:'/auth/register',controller:controllers.auth.register,method:'post'},
   {path:'/auth/login',controller:controllers.auth.login,method:'post'},
-  {path: /^\/static(\/.*)/,controller:controllers.static}
+  {path: /^\/static(\/.*)/,controller:controllers.static},
+  {path:'/play',controller:controllers.play}
 ]
 
 function notFoundController(req,res){
