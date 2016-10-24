@@ -28,6 +28,8 @@ router.get('/session/get', async(ctx)=>{
   ctx.body = ctx.session
 })
 
+router.post('/my/avatar',require('./upload'))
+
 router.get('/session/set', async(ctx)=> {
   ctx.session.foo = 'bar'
   ctx.session.time = Date.now()

@@ -24,6 +24,7 @@ app.use(async(ctx,next) =>{
 })
 
 app.use(mount('/static',require('koa-static')(__dirname+'/public')))
+app.use(mount('/upload',require('koa-static')(__dirname+'/data/uploadgit ')))
 app.use(bodyparser)
 app.use(json())
 
