@@ -1,27 +1,19 @@
 const models = require('../models')
 const router = require('koa-router')()
+const Auth = require('./auth')
+const User = require("./user")
 
 exports.router = router
 
+router.use('/auth',Auth.routes(),Auth.allowedMethods())
+router.use('/user',User.routes().User.allowedMethods())
+
+
 router.get('/',async (ctx)=>{
-  ctx.body = 'hello world'
-  const isLogin = false
+  //ctx.body = 'hello world'
+  const isLogin = !!ctx.session.uesrId
   await ctx.render(isLogin?'home':'welcome')
 })
-
-router.post('/register',async(ctx)=>{
-  const body = ctx.request.body
-  const user = {
-    email:body.email,
-    password:body.password,
-    nickname:body.nickname
-  }
-  const id = await models.user.create(user)
-  ctx.session.userId = id
-  ctx.redirect('/')
-
-})
-
 
 
 router.post('/test',async(ctx)=>{
