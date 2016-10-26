@@ -1,14 +1,27 @@
-const models = require('../models')
-const router = require('koa-router')()
-const Auth = require('./auth')
-const User = require("./user")
 
+const router = require('koa-router')()
 exports.router = router
 
-router.use('/auth',Auth.routes(),Auth.allowedMethods())
-router.use('/user',User.routes().User.allowedMethods())
+function useRoute(name) {
+  const rt = require(`./${name}`)
+  console.log(name)
+  router.use(`/${name}`,rt.routes(),rt.allowedMethods())
 
+}
+;['auth','user','users'].forEach(useRoute)
 
+//;['auth','user','users','rel','activities'].forEach(useRoute)
+// const models = require('../models')
+// const router = require('koa-router')()
+// const Auth = require('./auth')
+// const User = require("./user")
+//
+
+//
+// router.use('/auth',Auth.routes(),Auth.allowedMethods())
+// router.use('/user',User.routes().User.allowedMethods())
+//
+//
 router.get('/',async (ctx)=>{
   //ctx.body = 'hello world'
   const isLogin = !!ctx.session.uesrId

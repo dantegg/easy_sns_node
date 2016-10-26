@@ -11,11 +11,20 @@
 //
 // exports.token = new BaseModel(memStore,'token:')
 
-const {MongoClient } = require('monodb')
+const redis = require('redis')
+const redisWrapper = require('co-redis')
+const redisClient = redis.createClient('redis://localhost:6379')
+const redisCo = redisWrapper(redisClient)
+
+const {MongoClient } = require('mongodb')
 
 const UserModel = require('./user')
+//const ActivityModel = require('./activity')
+const RelationModel = require('./relation')
 
 exports.user = new UserModel()
+exports.relation = new RelationModel(redisCo)
+
 
 MongoClient.connect('mongodb://localhost/easysns').then(db=>{
     exports.user.init(db.collection('user'))

@@ -5,6 +5,9 @@
 const models = require('../models')
 const router = require('koa-router')()
 
+module.exports = router
+
+
 router.post('/register',async(ctx)=>{
     const body = ctx.request.body
     const user = {
@@ -37,3 +40,4 @@ router.get('/logout',async (ctx)=>{
     ctx.session = null
     ctx.redirect('/')
 })
+

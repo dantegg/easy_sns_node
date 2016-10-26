@@ -52,3 +52,5 @@ class RelationModel{
         return this.redis.zrevrange(KEY_FOLLOWINGS+userId,(pageNum-1)*pageSize,pageNum*pageSize)
     }
 }
+
+module.exports = RelationModel
