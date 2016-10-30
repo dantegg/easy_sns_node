@@ -19,10 +19,12 @@ const redisCo = redisWrapper(redisClient)
 const {MongoClient } = require('mongodb')
 
 const UserModel = require('./user')
-//const ActivityModel = require('./activity')
+const ActivityModel = require('./activity')
 const RelationModel = require('./relation')
-
+const timelineModel = require('./timeline')
 exports.user = new UserModel()
+exports.timeline = new timelineModel()
+exports.activity = new ActivityModel()
 exports.relation = new RelationModel(redisCo)
 
 

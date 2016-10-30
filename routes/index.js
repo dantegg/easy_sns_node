@@ -8,7 +8,7 @@ function useRoute(name) {
   router.use(`/${name}`,rt.routes(),rt.allowedMethods())
 
 }
-;['auth','user','users'].forEach(useRoute)
+;['auth','user','users','activity'].forEach(useRoute)
 
 //;['auth','user','users','rel','activities'].forEach(useRoute)
 // const models = require('../models')
