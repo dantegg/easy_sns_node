@@ -28,11 +28,17 @@ app.use(mount('/upload',require('koa-static')(__dirname+'/data/uploadgit ')))
 app.use(bodyparser)
 app.use(json())
 
-app.use(session({
-  store:redisSessionStore({
-      host:"localhost"
-  })
-}))
+//old session
+// app.use(session({
+//   store:redisSessionStore({
+//       host:"localhost"
+//   })
+// }))
+
+//new session
+const sessionStore = redisSessionStore({
+  //options
+})
 
 
 //进入router之前设置session
@@ -47,7 +53,13 @@ app.on('error',function(err,ctx){
   console.log(err)
   logger.error('server error',err,ctx)
 })
+//old
+//app.listen(3000)
+//new
+const http = require('http')
+const server = http.createServer(app.callback())
+server.listen(3000)
 
-app.listen(3000)
-
+//init wsapp
+require('./ws_app')(server,sessionStore,app.keys)
 module.exports = app
