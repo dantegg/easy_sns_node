@@ -18,9 +18,13 @@ module.exports = (httpServer,sessionStore,keys)=>{
         const sid = cookies.get('koa.sid')
         console.log('sid',sid)
         co(sessionStore.get('koa:sess:'+sid)).then(session=>{
-            console.log('userId',userId)
+
             const userId = session.userId
+            console.log('userId',userId)
             ws.userId = userId
+            wsManager.put(userId,ws)
+        }).catch(err=>{
+            console.log(err)
         })
     })
 }
