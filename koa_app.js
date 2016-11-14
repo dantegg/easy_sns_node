@@ -40,6 +40,9 @@ const sessionStore = redisSessionStore({
   //options
 })
 
+app.use(session({
+  store:sessionStore
+}))
 
 //进入router之前设置session
 
@@ -58,7 +61,7 @@ app.on('error',function(err,ctx){
 //new
 const http = require('http')
 const server = http.createServer(app.callback())
-server.listen(3000)
+server.listen(8080)
 
 //init wsapp
 require('./ws_app')(server,sessionStore,app.keys)

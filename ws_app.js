@@ -4,7 +4,7 @@
 const co = require('co')
 const ws = require('ws')
 const Cookies = require('cookies')
-const wsManager = require('./servers').wsManager
+const wsManager = require('./services').wsManager
 
 module.exports = (httpServer,sessionStore,keys)=>{
     const wss = ws.createServer({
