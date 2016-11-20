@@ -1,19 +1,21 @@
 /**
  * Created by dantegg on 2016/10/30.
  */
-const KEY_TILMELINE = 'timeline'
+const KEY_TIMELINE = 'timeline:'
 
 class TimelineModel{
-    constructor(redis){
+    constructor (redis) {
         this.redis = redis
     }
 
     push(userId,activityId){
-        return this.redis.zadd(KEY_TILMELINE+userId,Date.now(),activityId)
+        console.log('timelineModel is',this)
+
+        return this.redis.zadd(KEY_TIMELINE + userId, Date.now(),''+ activityId)
     }
 
     range(userId,page,pageSize){
-        return this.redis.zrevrange(KEY_TILMELINE+userId,(page-1)*pageSize,page*pageSize)
+        return this.redis.zrevrange(KEY_TIMELINE+userId,(page-1)*pageSize,page*pageSize)
     }
 }
 

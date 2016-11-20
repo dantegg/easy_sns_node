@@ -8,7 +8,7 @@ const ObjectID = require('mongodb').ObjectID
 
 
 router.get('/',async (ctx) =>{
-    var query = ctx.query.before || new  ObjectID(Date.now())
-    var rows = await models.user.findBefore(query.before).toArray()
+    var before = ctx.query.before || new  ObjectID(Date.now())
+    var rows = await models.user.findBefore(before).toArray()
     ctx.body = await services.user.normalizedList(rows,ctx.session.userId)
 })

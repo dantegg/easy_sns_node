@@ -7,7 +7,8 @@ const services = require('../services')
 
 // GET /activities/
 router.get('/',async(ctx)=>{
-    const page=parseInt(ctx.query.page,10)
+    const page = parseInt(ctx.query.page,10)
+    console.log('page',page)
     ctx.body = await services.activity.getTimeline(ctx.session.userId,page,3)
 })
 

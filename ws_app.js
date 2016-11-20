@@ -26,5 +26,12 @@ module.exports = (httpServer,sessionStore,keys)=>{
         }).catch(err=>{
             console.log(err)
         })
+        ws.on('message', (message) => {
+            wsManager.emit(ws.userId, message)
+        })
+
+        ws.on('close', () => {
+            wsManager.remove(ws.userId, ws)
+        })
     })
 }

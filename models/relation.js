@@ -23,8 +23,8 @@ class RelationModel{
             return
         }
         return this.redis.multi([
-            ['ZREM',KEY_FOLLOWINGS+userId,toUserId],
-            ['ZREM',KEY_FOLLOWERS+toUserId,userId]
+            ['ZREM', KEY_FOLLOWINGS + userId,toUserId],
+            ['ZREM', KEY_FOLLOWERS + toUserId,userId]
         ]).exec()
     }
 

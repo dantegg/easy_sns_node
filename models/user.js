@@ -77,6 +77,11 @@ class UserModel extends MongoBaseModel{
     async getByEmail(email){
         return await this.collection.findOne({email:email})
     }
+
+    async getIdByNickName(nickname){
+        const obj = await this.collection.findOne({nickname:nickname},{_id:1})
+        return obj && obj._id
+    }
 }
 
 module.exports = UserModel

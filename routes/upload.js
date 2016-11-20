@@ -17,12 +17,13 @@ module.exports = async (ctx) =>{
     const userId = ctx.session.userId
     if(!userId){
         ctx.body = {}
+        return
     }
     const files = await parseMultipart(ctx.req,{
         uploadDir:uploadDir
     })
     var newPath = files.file[0].path.replace(uploadDir,'')
-    var url = 'http://localhost:3000/upload'+newPath
+    var url = 'http://localhost:8080/upload'+newPath
     await models.user.updatePart(userId,{avatar:url})
     ctx.body = {
         avatar:url

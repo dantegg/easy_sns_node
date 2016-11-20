@@ -23,19 +23,24 @@ class ActivityService{
 
     async getTimeline(userId,page,pageSize=50){
         const ids = await models.timeline.range(userId,page,pageSize)
-        return await Promise.all(ids.map(id=>{this.getCache(id)}))
+        return await Promise.all(ids.map(id=> this.getCache(id)))
     }
 
     async publish(activity){
         if(!activity.userId){
             throw new Error('require activity userId')
         }
-        activity.userId = models.activityModel.toId(activity.userId)
-        var id = await this.activityModel.create(activity)
+        //console.log('activity',activity)
+        activity.userId = models.activity.toId(activity.userId)
+        var id = await models.activity.create(activity)
         const atUserNames = this.getAtUser(activity.content)
         if(atUserNames){
             await Promise.all(atUserNames.map(nickname => this.atUser(nickname)))
         }
+
+        //console.log('userid',activity.userId)
+        //console.log('activityid',id)
+
         await this.dispatch(activity.userId,id)
         return await this.getCache(id)
     }
@@ -55,14 +60,16 @@ class ActivityService{
     }
 
     async dispatch(userId,activityId){
-        await this.timelineModel.push(userId,activityId)
+        console.log('userid1',userId)
+        console.log('activityid1',activityId)
+        await models.timeline.push(userId,activityId)
         let page = 1
         while(true){
             let followers = await models.relation.listFollowers(userId,page++,1000)
             if(followers.length === 0){
                 return
             }
-            for(let followeId of followers){
+            for(let followerId of followers){
                 await models.timeline.push(followerId,activityId)
             }
         }

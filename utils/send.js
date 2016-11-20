@@ -11,6 +11,7 @@ exports.sendFile = function(path,res){
       }
       res.writeHead(500)
       res.end(err.message)
+      return
     }
     var mimeType = mime.lookup(path)
     var charset = mime.charsets.lookup(mimeType)
